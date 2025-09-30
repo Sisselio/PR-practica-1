@@ -1,9 +1,8 @@
-import { DevOnly } from '../../.nuxt/components';
 <template>
   <h1>Introduccion a Vue</h1>
   <ul>
     <li>
-      <h2>¿Que es Viu?</h2>
+      <h2>¿Que es Vue?</h2>
     </li>
     <ul>
       <li>
@@ -18,6 +17,5 @@ import { DevOnly } from '../../.nuxt/components';
       </li>
     </ul>
   </ul>
-
-  <p></p>
+  <NuxtLink href="/page2">Siguente</NuxtLink>
 </template>

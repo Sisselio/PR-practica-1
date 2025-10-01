@@ -1,6 +1,17 @@
+<script setup lang="ts">
+defineProps<{
+  message: string;
+  image: string;
+  test: string;
+}>();
+
+defineEmits(["test"]);
+</script>
+
 <template>
   <div>
-    <p>{{ mensaje }}</p>
+    <img :src="image" />
+    <button @click="$emit('test')">{{ message }}</button>
+    {{ test }}
   </div>
 </template>
-<script></script>

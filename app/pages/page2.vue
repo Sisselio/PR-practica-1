@@ -29,7 +29,8 @@
         <code>
           import { createApp } from 'vue'<br />
           import App from './App.vue'<br />
-          const app = createApp(App)
+          import { NuxtLink } from '../../.nuxt/components'; const app =
+          createApp(App)
         </code>
       </li>
     </ul>
@@ -49,5 +50,6 @@
       </li>
     </ul>
   </ul>
-  <a href="/">Atras</a><a href="/page3">Siguente</a>
+  <NuxtLink href="/">Atras </NuxtLink
+  ><NuxtLink href="/page3">Siguente</NuxtLink>
 </template>

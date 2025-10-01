@@ -1,5 +1,13 @@
+import { PractiquillasPr1 } from '../../.nuxt/components';
+<script setup>
+const myUrl = "my-url";
+const doSomething = () => {
+  alert("algo");
+};
+</script>
+
 <template>
-  <h1>Introduccion a Vue</h1>
+  <h1 @click.prevent="">Introduccion a Vue</h1>
   <ul>
     <li>
       <h2>¿Que es Vue?</h2>
@@ -17,5 +25,6 @@
       </li>
     </ul>
   </ul>
+  <PractiquillasPr1 />
   <NuxtLink href="/page2">Siguente</NuxtLink>
 </template>

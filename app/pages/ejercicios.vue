@@ -108,7 +108,7 @@ Usa v-model para enlazar el input con una variable reactiva.
 
 Usa interpolación para mostrar el mensaje en tiempo real. -->
 
-  <!-- <div id="ej6">
+  <div id="ej6">
     <form action="#">
       <h1>Ejercicio 6</h1>
       <label for="nombre"
@@ -116,7 +116,7 @@ Usa interpolación para mostrar el mensaje en tiempo real. -->
       ><br />
       <input type="text" v-model="modelValue.name" />
     </form>
-  </div> -->
+  </div>
 
   <!-- ✅ Ejercicio 7: Lista de tareas con añadir y eliminar
 
@@ -196,16 +196,39 @@ Usa un computed o watch para analizar la palabra.
 
 Ignora mayúsculas/minúsculas. -->
 
-  <!-- ✅ Ejercicio 10: Select dinámico y filtro de productos
+  <div id="ej9">
+    <h1>Ejercicio 9</h1>
+    <form action="#">
+      <label for="palabra"
+        >Introduce una palabra: <span>{{ wordValue.name }}</span></label
+      ><br />
+      <input type="text" name="palabra" id="palabra" v-model="wordValue.name" />
+      <label for="isPalindrome">{{ palindrome }}</label>
+    </form>
+  </div>
 
+  <!-- ✅ Ejercicio 10: Select dinámico y filtro de productos
 Enunciado
-Crea una lista de productos con nombre y categoría. Agrega un con categorías para filtrar los productos. 
+Crea una lista de productos con nombre y categoría. Agrega un select con categorías para filtrar los productos. 
 Requisitos: Usa un array de productos (nombre y categoría). Usa un computed para mostrar los productos 
 filtrados por la categoría seleccionada. Muestra todos si no se ha seleccionado ninguna categoría. -->
+  <div id="ej10">
+    <h1>Ejercicio 10</h1>
+    <select name="categorias" id="category" v-model="selectedCategory">
+      <option value="">Seleccione una categoria</option>
+      <option v-for="category in categories" :key="category" :value="category">
+        {{ category }}
+      </option>
+    </select>
+    <ul>
+      <li v-for="product in filteredProducts" :key="product.name">
+        {{ product.name }} - {{ product.category }}
+      </li>
+    </ul>
+  </div>
 </template>
 <script setup>
-// import Child from "./Child.vue";
-import { ref, computed } from "vue";
+import { ref, watch } from "vue";
 // Ejercicio 1
 const mensaje = ref("Ejercicio 1");
 // Ejercicio 2
@@ -247,6 +270,45 @@ function AdminContador(num) {
 }
 
 // Ejercicio 9
-
-// Ejercicio 16
+const wordValue = ref({
+  name: "",
+});
+const palindrome = ref("");
+function isPalindrome(str) {
+  const re = /[\W_]/g;
+  const cleanStr = str.toLowerCase().replace(re, "");
+  return cleanStr === cleanStr.split("").reverse().join("");
+}
+function checkIsPalindrome() {
+  if (isPalindrome(wordValue.value.name)) {
+    palindrome.value = "  Es palindromo";
+  } else {
+    palindrome.value = "  No es palindromo";
+  }
+}
+watch(() => wordValue.value.name, checkIsPalindrome);
+// Ejercicio 10
+const products = ref([
+  { name: "Ordenador", category: "Electrónica" },
+  { name: "Movil", category: "Electrónica" },
+  { name: "Camiseta", category: "Ropa" },
+  { name: "Pantalón", category: "Ropa" },
+  { name: "Mesa", category: "Hogar" },
+]);
+const selectedCategory = ref("");
+const categories = computed(() => {
+  // esto crea un array con solo las categorias
+  const allCategories = products.value.map((p) => p.category);
+  // esto con set quita los repetidos y al poner ... delante lo reconvierte a un array normal
+  return [...new Set(allCategories)];
+});
+const filteredProducts = computed(() => {
+  if (!selectedCategory.value) {
+    return products.value;
+  }
+  return products.value.filter(
+    // esto hace que el resultado sean los elementos del array que coincieden con lo seleccionado en el select
+    (product) => product.category === selectedCategory.value
+  );
+});
 </script>

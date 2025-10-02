@@ -4,6 +4,21 @@ const myUrl = "my-url";
 const doSomething = () => {
   alert("algo");
 };
+
+const myData = [
+  {
+    image:
+      "https://medios.alebateducation.com/media/2025/9/foto_slide_52_fe1e5e9474.jpg",
+    message: "Imagen 1",
+    test: "fjhs",
+  },
+  {
+    image:
+      "https://medios.alebateducation.com/media/2025/9/SLIDE_Bootcamp_Gestion_De_Clinicas_771aa76401.jpg",
+    message: "Imagen 2",
+    test: "fjhs",
+  },
+];
 </script>
 
 <template>
@@ -25,6 +40,6 @@ const doSomething = () => {
       </li>
     </ul>
   </ul>
-  <PractiquillasPr1 />
+  <PractiquillasPr1 v-for="card in myData" v-bind="card" @test="doSomething" />
   <NuxtLink href="/page2">Siguente</NuxtLink>
 </template>

@@ -259,7 +259,7 @@ La búsqueda debe ser insensible a mayúsculas/minúsculas. -->
       </li>
     </ul>
   </div> -->
-  <div id="ej11">
+  <!-- <div id="ej11">
     <h1>Ejercicio 11</h1>
     <input
       v-model="searchName"
@@ -274,7 +274,7 @@ La búsqueda debe ser insensible a mayúsculas/minúsculas. -->
     </ul>
 
     <p v-if="matchingNames.length === 0">No se encontraron usuarios.</p>
-  </div>
+  </div> -->
   <!-- ✅ Ejercicio 12: Formulario de registro con validación reactiva
 
 Enunciado
@@ -405,9 +405,12 @@ Aplica una clase activa al botón/tab seleccionado. -->
 
   <div id="ej15">
     <h1>Ejercicio 15</h1>
-    <button>Inicio</button>
-    <button>Perfil</button>
-    <button>Configuración</button>
+    <select v-model="selectTabs" @change="selectedTab(selectTabs)">
+      <option value="">Seleccione una pestaña</option>
+      <option v-for="tab in tabs" :key="tab.id" :value="tab">
+        {{ tab.name }}
+      </option>
+    </select>
     <div v-if="isInicio">
       <h3>Pestaña de inicio</h3>
     </div>
@@ -424,6 +427,7 @@ Aplica una clase activa al botón/tab seleccionado. -->
 
 <script setup>
 import { ref, watch, computed } from "vue";
+import Index from "./index.vue";
 // Ejercicio 1
 const mensaje = ref("Ejercicio 1");
 // Ejercicio 2
@@ -590,7 +594,7 @@ function sortedDown() {
   const sorted = [...electronicProducts.value].sort(sortPrizesDown);
   return sorted.map(toRaw);
 }
-function sortedAlphabeticaly() {
+function sortedAlphabetically() {
   const sorted = [...electronicProducts.value].sort(sortNames);
   return sorted.map(toRaw);
 }
@@ -603,8 +607,37 @@ const orderedProducts = computed(() => {
   } else if (selectedOrder.value == "Precio descendente") {
     return sortedDown();
   } else if (selectedOrder.value == "Alfabeticamente") {
-    return sortedAlphabeticaly();
+    return sortedAlphabetically();
   }
 });
 // Ejercicio 15
+const isInicio = ref(false);
+const isPerfil = ref(false);
+const isConfiguración = ref(false);
+const selectTabs = ref("");
+const tabs = ref([
+  { name: "Inicio", id: 1 },
+  { name: "Perfil", id: 2 },
+  { name: "Configuración", id: 3 },
+]);
+function selectedTab(tab) {
+  if (tab.id === 1) {
+    isInicio.value = true;
+    isPerfil.value = false;
+    isConfiguración.value = false;
+  } else if (tab.id === 2) {
+    isInicio.value = false;
+    isPerfil.value = true;
+    isConfiguración.value = false;
+  } else if (tab.id === 3) {
+    isInicio.value = false;
+    isPerfil.value = false;
+    isConfiguración.value = true;
+  } else {
+    isInicio.value = false;
+    isPerfil.value = false;
+    isConfiguración.value = false;
+  }
+}
+// const selectTabs = computed(() => {});
 </script>

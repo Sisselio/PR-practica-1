@@ -427,7 +427,6 @@ Aplica una clase activa al botón/tab seleccionado. -->
 
 <script setup>
 import { ref, watch, computed } from "vue";
-import Index from "./index.vue";
 // Ejercicio 1
 const mensaje = ref("Ejercicio 1");
 // Ejercicio 2
